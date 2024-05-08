@@ -10,7 +10,7 @@ import Loader from '../Loader/Loader';
 import useModal from '../../hooks/useModal';
 import usePages from '../../hooks/usePages';
 
-import { ModalState, Photo, Photos, Response } from './App.types';
+import { Photos } from './App.types';
 
 const App = () => {
   const [request, setRequest] = useState<string>('');
@@ -20,12 +20,10 @@ const App = () => {
 
   const { page, totalPages, resetPage, nextPage, resetTotal, setTotal } =
     usePages();
-  const { modal, open, close } = useModal<ModalState, Photo>({
-    visible: false,
-    image: null,
-  });
+  const { modal, open, close } = useModal();
 
   const headerElemRef = useRef<HTMLElement | null>(null);
+
   const getHeaderHeight = useCallback(() => {
     if (!headerElemRef.current) return 0;
     return headerElemRef.current.getBoundingClientRect().height;
@@ -45,7 +43,7 @@ const App = () => {
     const fetchPhotos = async (): Promise<void> => {
       try {
         setLoading(true);
-        const response: Response = await getPhotos(request, page);
+        const response = await getPhotos(request, page);
         setTotal(response.total_pages);
         setPhotos((prev) =>
           prev ? [...prev, ...response.results] : [...response.results]

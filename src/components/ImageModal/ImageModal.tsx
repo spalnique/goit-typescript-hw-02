@@ -1,19 +1,22 @@
 import ReactModal from 'react-modal';
 import style from '../ImageModal/ImageModal.module.css';
 import { IoCloseCircleOutline } from 'react-icons/io5';
-import { Photo } from '../App/App.types';
-import { FC, MouseEvent, ReactElement } from 'react';
+import { IPhoto } from '../App/App.types';
 
-interface Props {
-  image: Photo;
+interface IProps {
+  image: IPhoto;
   isOpen: boolean;
-  closeModal: () => void;
+  closeModal: VoidFunction;
 }
 
-const ImageModal: FC<Props> = ({ isOpen, image, closeModal }): ReactElement => {
+const ImageModal: React.FC<IProps> = ({
+  image,
+  isOpen,
+  closeModal,
+}): React.ReactElement => {
   ReactModal.setAppElement('#root');
 
-  const handleContextMenu = (e: MouseEvent<HTMLDivElement>): void => {
+  const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>): void => {
     e.preventDefault();
     closeModal();
   };
@@ -38,24 +41,6 @@ const ImageModal: FC<Props> = ({ isOpen, image, closeModal }): ReactElement => {
             onContextMenu={handleContextMenu}
           />
         )}
-        <ul className={style.descList}>
-          <li className={style.descItem}>
-            <span className={style.descItemTitle}></span>
-            <span className={style.descItemText}></span>
-          </li>
-          <li className={style.descItem}>
-            <span className={style.descItemTitle}></span>
-            <span className={style.descItemText}></span>
-          </li>
-          <li className={style.descItem}>
-            <span className={style.descItemTitle}></span>
-            <span className={style.descItemText}></span>
-          </li>
-          <li className={style.descItem}>
-            <span className={style.descItemTitle}></span>
-            <span className={style.descItemText}></span>
-          </li>
-        </ul>
         <span className={style.modalClose} onClick={closeModal}>
           <IoCloseCircleOutline size={24} />
         </span>

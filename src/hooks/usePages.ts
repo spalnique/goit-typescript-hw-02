@@ -1,22 +1,22 @@
 import { useCallback, useState } from 'react';
 
-interface PagesState {
+interface IPagesState {
   initPage: number;
   initTotal: number;
 }
 
-interface PagesReturn {
+interface IReturn {
   page: number;
   totalPages: number;
-  resetPage: () => void;
-  nextPage: () => void;
-  resetTotal: () => void;
+  resetPage: VoidFunction;
+  nextPage: VoidFunction;
+  resetTotal: VoidFunction;
   setTotal: (param: number) => void;
 }
 
 const usePages = (
-  pages: PagesState = { initPage: 1, initTotal: 0 }
-): PagesReturn => {
+  pages: IPagesState = { initPage: 1, initTotal: 0 }
+): IReturn => {
   const [page, setPage] = useState<number>(pages.initPage);
   const [totalPages, setTotalPages] = useState<number>(pages.initTotal);
 

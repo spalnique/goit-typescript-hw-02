@@ -1,12 +1,11 @@
-import { FC } from 'react';
 import style from '../LoadMoreBtn/LoadMoreBtn.module.css';
 
-interface Props {
-  onClick: () => void;
+interface IProps {
+  onClick: VoidFunction;
 }
 
-const LoadMoreBtn: FC<Props> = ({ onClick }) => {
-  const handleClick = (): void => {
+const LoadMoreBtn: React.FC<IProps> = ({ onClick }): React.ReactNode => {
+  const handleClick: VoidFunction = () => {
     onClick();
   };
 

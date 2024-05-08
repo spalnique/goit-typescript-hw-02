@@ -1,19 +1,26 @@
-import style from '../ImageGallery/ImageGallery.module.css';
-import { FC, MouseEvent, useEffect, useRef } from 'react';
-import ImageCard from '../ImageCard/ImageCard';
-import { perPage } from '../../unsplash-api/unsplash-api';
-import { Photo, Photos } from '../App/App.types';
+import { useEffect, useRef } from 'react';
 
-interface Props {
+import ImageCard from '../ImageCard/ImageCard';
+
+import { perPage } from '../../unsplash-api/unsplash-api';
+import { IPhoto, Photos } from '../App/App.types';
+
+import style from '../ImageGallery/ImageGallery.module.css';
+
+interface IProps {
   images: Photos;
-  onImageClick: (param: Photo) => void;
+  onImageClick: (param: IPhoto) => void;
   getHeaderHeight: () => number;
 }
 
-const ImageGallery: FC<Props> = ({ images, onImageClick, getHeaderHeight }) => {
+const ImageGallery: React.FC<IProps> = ({
+  images,
+  onImageClick,
+  getHeaderHeight,
+}): React.ReactNode => {
   const galleryRef = useRef<HTMLUListElement>(null);
 
-  const handleContextMenu = (e: MouseEvent): void => {
+  const handleContextMenu = (e: React.MouseEvent): void => {
     e.preventDefault();
   };
 
