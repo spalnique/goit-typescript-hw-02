@@ -3,28 +3,35 @@ import { getPhotos } from '../../unsplash-api/unsplash-api';
 import SearchBar from '../SearchBar/SearchBar';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
-import Loader from '../Loader/Loader';
-import useModal from '../../hooks/useModal';
-import usePages from '../../hooks/usePages';
 import ImageModal from '../ImageModal/ImageModal';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import Loader from '../Loader/Loader';
+
+import useModal from '../../hooks/useModal';
+import usePages from '../../hooks/usePages';
+
+import { ModalState, Photo, Photos, Response } from './App.types';
 
 const App = () => {
-  const [request, setRequest] = useState('');
-  const [error, setError] = useState(false);
-  const [photos, setPhotos] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [request, setRequest] = useState<string>('');
+  const [error, setError] = useState<boolean>(false);
+  const [photos, setPhotos] = useState<Photos | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const { page, totalPages, resetPage, nextPage, resetTotal, setTotal } =
     usePages();
-  const { modal, open, close } = useModal({ visible: false, image: null });
+  const { modal, open, close } = useModal<ModalState, Photo>({
+    visible: false,
+    image: null,
+  });
 
-  const headerElemRef = useRef();
-  const getHeaderHeight = useCallback(
-    () => headerElemRef.current.getBoundingClientRect().height,
-    []
-  );
+  const headerElemRef = useRef<HTMLElement | null>(null);
+  const getHeaderHeight = useCallback(() => {
+    if (!headerElemRef.current) return 0;
+    return headerElemRef.current.getBoundingClientRect().height;
+  }, []);
 
-  const onSubmit = (userInput) => {
+  const onSubmit = (userInput: string): void => {
     if (userInput === request) return;
     setError(false);
     setPhotos(null);
@@ -35,10 +42,10 @@ const App = () => {
 
   useEffect(() => {
     if (!request) return;
-    const fetchPhotos = async () => {
+    const fetchPhotos = async (): Promise<void> => {
       try {
         setLoading(true);
-        const response = await getPhotos(request, page);
+        const response: Response = await getPhotos(request, page);
         setTotal(response.total_pages);
         setPhotos((prev) =>
           prev ? [...prev, ...response.results] : [...response.results]
@@ -54,7 +61,7 @@ const App = () => {
 
   return (
     <>
-      <SearchBar ref={headerElemRef} onSubmit={onSubmit} />
+      <SearchBar onSubmit={onSubmit} ref={headerElemRef} />
 
       {error && <ErrorMessage />}
 
@@ -74,11 +81,13 @@ const App = () => {
       ) : (
         page < totalPages && <LoadMoreBtn onClick={nextPage} />
       )}
-      <ImageModal
-        isOpen={modal.visible}
-        image={modal.image}
-        closeModal={close}
-      />
+      {modal.image && (
+        <ImageModal
+          isOpen={modal.visible}
+          image={modal.image}
+          closeModal={close}
+        />
+      )}
     </>
   );
 };

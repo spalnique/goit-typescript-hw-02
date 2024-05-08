@@ -1,9 +1,22 @@
 import ReactModal from 'react-modal';
 import style from '../ImageModal/ImageModal.module.css';
 import { IoCloseCircleOutline } from 'react-icons/io5';
+import { Photo } from '../App/App.types';
+import { FC, MouseEvent, ReactElement } from 'react';
 
-const ImageModal = ({ isOpen, image, closeModal }) => {
+interface Props {
+  image: Photo;
+  isOpen: boolean;
+  closeModal: () => void;
+}
+
+const ImageModal: FC<Props> = ({ isOpen, image, closeModal }): ReactElement => {
   ReactModal.setAppElement('#root');
+
+  const handleContextMenu = (e: MouseEvent<HTMLDivElement>): void => {
+    e.preventDefault();
+    closeModal();
+  };
 
   return (
     <ReactModal
@@ -15,19 +28,14 @@ const ImageModal = ({ isOpen, image, closeModal }) => {
       shouldCloseOnOverlayClick={true}
       shouldCloseOnEsc={true}
       preventScroll={true}>
-      <div
-        className={style.imageWrapper}
-        onContextMenu={(e) => {
-          e.preventDefault();
-          closeModal();
-        }}>
+      <div className={style.imageWrapper} onContextMenu={handleContextMenu}>
         {image && (
           <img
             className={style.modalImage}
             src={image.urls.regular}
             alt={image.alt_description}
             onClick={closeModal}
-            onContextMenu={closeModal}
+            onContextMenu={handleContextMenu}
           />
         )}
         <ul className={style.descList}>

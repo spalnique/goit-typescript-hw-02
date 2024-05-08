@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export const perPage = 15;
+export const perPage: number = 15;
 
-export const getPhotos = async (query, page) => {
-  const { data } = await axios.get(`?query=${query}&page=${page}`);
-  return data;
+export const getPhotos = async <T>(query: string, page: number): Promise<T> => {
+  const response: { data: T } = await axios.get(`?query=${query}&page=${page}`);
+  return response.data;
 };
 
 axios.defaults.baseURL = 'https://api.unsplash.com/search/photos';

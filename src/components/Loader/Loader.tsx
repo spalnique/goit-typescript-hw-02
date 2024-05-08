@@ -1,7 +1,7 @@
 import { DNA } from 'react-loader-spinner';
 import style from '../Loader/Loader.module.css';
 
-export default function Loader() {
+const Loader = () => {
   return (
     <div className={style.loaderWrapper}>
       <DNA
@@ -14,4 +14,6 @@ export default function Loader() {
       />
     </div>
   );
-}
+};
+
+export default Loader;
