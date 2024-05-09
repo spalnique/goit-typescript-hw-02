@@ -1,18 +1,7 @@
 import { useState } from 'react';
-import { IPhoto } from '../components/App/App.types';
+import { IModalProps, IModalState, IPhoto } from 'types';
 
-interface IModalState {
-  visible: boolean;
-  image: IPhoto | null;
-}
-
-interface IReturn {
-  modal: IModalState;
-  open: (arg: IPhoto) => void;
-  close: VoidFunction;
-}
-
-const useModal = (): IReturn => {
+export const useModal = (): IModalProps => {
   const [modal, setModal] = useState<IModalState>({
     visible: false,
     image: null,
@@ -30,5 +19,3 @@ const useModal = (): IReturn => {
 
   return { modal, open, close };
 };
-
-export default useModal;

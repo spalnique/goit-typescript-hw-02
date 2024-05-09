@@ -1,20 +1,9 @@
 import axios from 'axios';
-
-import { Photos } from '../components/App/App.types';
-
-interface IResponse {
-  results: Photos;
-  total: number;
-  total_pages: number;
-}
-
-interface IAsyncFn {
-  (p1: string, p2: number): Promise<IResponse>;
-}
+import { IgetPhotos } from '../@types';
 
 export const perPage: number = 15;
 
-export const getPhotos: IAsyncFn = async (query, page) => {
+export const getPhotos: IgetPhotos = async (query, page) => {
   const response = await axios.get(`?query=${query}&page=${page}`);
   return response.data;
 };

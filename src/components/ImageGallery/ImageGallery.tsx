@@ -1,19 +1,12 @@
 import { useEffect, useRef } from 'react';
 
-import ImageCard from '../ImageCard/ImageCard';
-
-import { perPage } from '../../unsplash-api/unsplash-api';
-import { IPhoto, Photos } from '../App/App.types';
+import { ImageCard } from 'components';
+import { IImageGalleryProps } from 'types';
+import { perPage } from 'api';
 
 import style from '../ImageGallery/ImageGallery.module.css';
 
-interface IProps {
-  images: Photos;
-  onImageClick: (param: IPhoto) => void;
-  getHeaderHeight: () => number;
-}
-
-const ImageGallery: React.FC<IProps> = ({
+const ImageGallery: React.FC<IImageGalleryProps> = ({
   images,
   onImageClick,
   getHeaderHeight,

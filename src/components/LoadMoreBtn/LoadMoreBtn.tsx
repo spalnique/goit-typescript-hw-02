@@ -1,10 +1,10 @@
+import { ILoadMoreProps } from 'types';
+
 import style from '../LoadMoreBtn/LoadMoreBtn.module.css';
 
-interface IProps {
-  onClick: VoidFunction;
-}
-
-const LoadMoreBtn: React.FC<IProps> = ({ onClick }): React.ReactNode => {
+const LoadMoreBtn: React.FC<ILoadMoreProps> = ({
+  onClick,
+}): React.ReactNode => {
   const handleClick: VoidFunction = () => {
     onClick();
   };

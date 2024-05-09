@@ -1,13 +1,11 @@
-import { IPhoto } from '../App/App.types';
+import { IImageCardProps } from 'types';
 
 import style from '../ImageCard/ImageCard.module.css';
 
-interface IProps {
-  image: IPhoto;
-  onClick: (param: IPhoto) => void;
-}
-
-const ImageCard: React.FC<IProps> = ({ image, onClick }): React.ReactNode => {
+const ImageCard: React.FC<IImageCardProps> = ({
+  image,
+  onClick,
+}): React.ReactNode => {
   const handleClick: VoidFunction = () => {
     onClick(image);
   };

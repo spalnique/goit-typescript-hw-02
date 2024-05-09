@@ -1,14 +1,11 @@
 import { forwardRef } from 'react';
-
 import toast, { Toaster } from 'react-hot-toast';
+
+import { ISearchBarProps } from 'types';
 
 import style from '../SearchBar/SearchBar.module.css';
 
-interface IProps {
-  onSubmit: (param: string) => void;
-}
-
-const SearchBar = forwardRef<HTMLElement, IProps>(
+const SearchBar = forwardRef<HTMLElement, ISearchBarProps>(
   ({ onSubmit }, ref): React.ReactNode => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -54,5 +51,4 @@ const SearchBar = forwardRef<HTMLElement, IProps>(
     );
   }
 );
-
 export default SearchBar;

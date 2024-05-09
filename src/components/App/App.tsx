@@ -1,18 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { getPhotos } from '../../unsplash-api/unsplash-api';
-import SearchBar from '../SearchBar/SearchBar';
-import ImageGallery from '../ImageGallery/ImageGallery';
-import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
-import ImageModal from '../ImageModal/ImageModal';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
-import Loader from '../Loader/Loader';
 
-import useModal from '../../hooks/useModal';
-import usePages from '../../hooks/usePages';
+import {
+  ErrorMessage,
+  ImageGallery,
+  ImageModal,
+  LoadMoreBtn,
+  Loader,
+  SearchBar,
+} from 'components';
+import { usePages, useModal } from 'hooks';
+import { Photos } from 'types';
+import { getPhotos } from 'api';
 
-import { Photos } from './App.types';
-
-const App = () => {
+const App: React.FC = (): React.ReactNode => {
   const [request, setRequest] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
   const [photos, setPhotos] = useState<Photos | null>(null);

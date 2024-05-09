@@ -1,15 +1,11 @@
 import ReactModal from 'react-modal';
-import style from '../ImageModal/ImageModal.module.css';
 import { IoCloseCircleOutline } from 'react-icons/io5';
-import { IPhoto } from '../App/App.types';
 
-interface IProps {
-  image: IPhoto;
-  isOpen: boolean;
-  closeModal: VoidFunction;
-}
+import { IImageModalProps } from 'types';
 
-const ImageModal: React.FC<IProps> = ({
+import style from '../ImageModal/ImageModal.module.css';
+
+const ImageModal: React.FC<IImageModalProps> = ({
   image,
   isOpen,
   closeModal,
