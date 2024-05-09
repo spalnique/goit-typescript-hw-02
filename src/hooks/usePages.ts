@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+
 import { IPagesProps, IPagesState } from 'types';
 
 export const usePages = (
@@ -11,13 +12,7 @@ export const usePages = (
   const nextPage = () => setPage((page) => page + 1);
 
   const resetTotal = () => setTotalPages(0);
-  const setTotal = (value: number) => setTotalPages(value);
-
-  // const resetPage = useCallback(() => setPage(1), []);
-  // const nextPage = useCallback(() => setPage((page) => page + 1), []);
-
-  // const resetTotal = useCallback(() => setTotalPages(0), []);
-  // const setTotal = useCallback((value: number) => setTotalPages(value), []);
+  const setTotal = useCallback((value: number) => setTotalPages(value), []);
 
   return { page, totalPages, resetPage, nextPage, resetTotal, setTotal };
 };

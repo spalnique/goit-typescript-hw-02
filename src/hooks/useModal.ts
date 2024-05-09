@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { IModalProps, IModalState, IPhoto } from 'types';
 
 export const useModal = (): IModalProps => {
